@@ -1,0 +1,89 @@
+show databases;
+create database db_faculdade;
+use db_faculdade;
+create table tbl_aluno (
+	id int not null primary key auto_increment,
+    nome_aluno varchar (80) not null,
+    cpf varchar (14) not null,
+    nascimento date,
+    matricula varchar(45) not null
+    );
+    
+create table tbl_telefone_aluno (
+	id int not null primary key auto_increment,
+		numero varchar (15) not null,
+        fk_tbl_aluno int,
+	foreign key (fk_tbl_aluno)
+    references tbl_aluno (id)
+    );
+
+create table tbl_email_aluno (
+	id int not null primary key auto_increment,
+    email varchar(200) not null,
+     fk_tbl_aluno int,
+	foreign key (fk_tbl_aluno)
+    references tbl_aluno (id)
+    );
+
+create table tbl_curso (
+	id int not null primary key auto_increment,
+    carga_horaria varchar(100) not null,
+    nome_curso varchar(45) not null
+    );
+    
+    create table tbl_materia (
+	id int not null primary key auto_increment,
+    nome varchar(45)not null,
+    carga_horaria varchar(45) not null,
+     fk_tbl_curso int,
+    	foreign key (fk_tbl_curso)
+    references tbl_curso (id)
+    );
+    
+       create table tbl_professor_materia (
+	id int not null primary key auto_increment,
+     fk_tbl_professor int,
+      fk_tbl_materia int,
+		foreign key (fk_tbl_professor)
+    references tbl_professor (id),
+    		foreign key (fk_tbl_materia)
+    references tbl_materia (id)
+    
+    );
+    
+       create table tbl_professor (
+	id int not null primary key auto_increment,
+    nome varchar(80)not null,
+    cpf_professor varchar(14) not null
+    );
+    
+       create table tbl_email_professor (
+	id int not null primary key auto_increment,
+    email varchar(200) not null,
+	 fk_tbl_professor int,
+    		foreign key (fk_tbl_professor)
+    references tbl_professor (id)
+    );
+    
+       create table tbl_telefone_professor (
+	id int not null primary key auto_increment,
+    numero_professor varchar(15) not null,
+     fk_tbl_professor int,
+    		foreign key (fk_tbl_professor)
+    references tbl_professor (id)
+    );
+    
+       create table tbl_nota (
+	id int not null primary key auto_increment,
+     fk_tbl_materia int,
+      fk_tbl_aluno int,
+      data_nota date,
+      nota decimal (10,2),
+    		foreign key (fk_tbl_materia)
+    references tbl_materia (id),
+    		foreign key (fk_tbl_aluno)
+    references tbl_aluno (id)
+    
+    );
+    
+    
